@@ -13,14 +13,14 @@ parameters:
     - Production
     - Staging
 
-variables:
-  - group: 'App Configuration'
-  - ${{ if eq(parameters.environment, 'Staging') }}:
-    - group: 'Firebase Configuration Staging'
-  - ${{ if eq(parameters.environment, 'Production') }}:
-    - group: 'Firebase Configuration Production'
-  - name: ENVIRONMENT
-    value: ${{ parameters.environment }}
+# variables:
+#   - group: 'App Configuration'
+#   - ${{ if eq(parameters.environment, 'Staging') }}:
+#     - group: 'Firebase Configuration Staging'
+#   - ${{ if eq(parameters.environment, 'Production') }}:
+#     - group: 'Firebase Configuration Production'
+#   - name: ENVIRONMENT
+#     value: ${{ parameters.environment }}
 
 # Setting the trigger when a tag has been added to any branch. 
 # trigger:
