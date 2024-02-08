@@ -2,7 +2,7 @@
 #
 # Set the vX.X.X-X tag (vMAJOR.MINOR.PATCH-BUILD_NUMBER) to trigger the pipeline
 # Install the Mobile Versioning in your Azure workspace https://marketplace.visualstudio.com/items?itemName=DamienAicheh.mobile-versioning-task
-#
+# 
 
 parameters:
   - name: environment
