@@ -61,12 +61,12 @@ stages:
       name: keystore
       displayName: Download keystore 
       inputs:
-        secureFile: '$(keystore-filename)'
+        secureFile: '$(android-keystore-name)'
 
     - script: |
         echo Downloaded $(keystore.secureFilePath)
         echo Environment $(ENVIRONMENT)
-        echo Working Directory $(System.DefaultWorkingDirectory)\\$(keystore-filename)
+        echo Working Directory $(System.DefaultWorkingDirectory)\\$(android-keystore-name)
         mv $(keystore.secureFilePath) $(System.DefaultWorkingDirectory)
       displayName: Move Keystore to Working Directory
 
