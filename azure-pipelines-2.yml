@@ -1,5 +1,5 @@
-trigger:
-- main
+# trigger:
+# - main
 
 pool:
   vmImage: 'macOS-latest'
@@ -31,3 +31,4 @@ steps:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)'
     artifactName: 'drop'
     publishLocation: 'Container'
+    
