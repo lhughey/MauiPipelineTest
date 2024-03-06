@@ -67,7 +67,7 @@ stages:
         echo Downloaded $(keystore.secureFilePath)
         echo Environment $(ENVIRONMENT)
         echo Working Directory $(System.DefaultWorkingDirectory)\\$(android-keystore-name)
-        echo Copy Location  $(app-build-configuration)/$(app-target-framework-android)/publish/**
+        # echo Copy Location  $(app-build-configuration)/$(app-target-framework-android)/publish/**
         echo Copy2 Location $(app-build-configuration)/$(app-target-framework-android)/
         mv $(keystore.secureFilePath) $(System.DefaultWorkingDirectory)
       displayName: Move Keystore to Working Directory
@@ -119,17 +119,25 @@ stages:
       displayName: 'Copy files to: $(build.artifactstagingdirectory)'
       inputs:
         SourceFolder: '$(system.defaultworkingdirectory)'
-        Contents: '$(app-build-configuration)/$(app-target-framework-android)/publish/**'
-        TargetFolder: '$(build.artifactstagingdirectory)'
-        CleanTargetFolder: true
-        
-    - task: CopyFiles@2
-      displayName: 'Copy files to: $(build.artifactstagingdirectory) - Part 2'
-      inputs:
-        SourceFolder: '$(system.defaultworkingdirectory)'
         Contents: '$(app-build-configuration)/$(app-target-framework-android)/**'
         TargetFolder: '$(build.artifactstagingdirectory)'
         CleanTargetFolder: true
+        
+    # - task: CopyFiles@2
+    #   displayName: 'Copy files to: $(build.artifactstagingdirectory) - Part 2'
+    #   inputs:
+    #     SourceFolder: '$(system.defaultworkingdirectory)'
+    #     Contents: '$(app-build-configuration)/$(app-target-framework-android)/**'
+    #     TargetFolder: '$(build.artifactstagingdirectory)'
+    #     CleanTargetFolder: true
+    
+    # - task: CopyFiles@2
+    #   displayName: 'Copy files to: $(build.artifactstagingdirectory) - Part 3'
+    #   inputs:
+    #     SourceFolder: '$(system.defaultworkingdirectory)'
+    #     Contents: '$(app-build-configuration)/$(app-target-framework-android)/**'
+    #     TargetFolder: '$(build.artifactstagingdirectory)'
+    #     CleanTargetFolder: true
     
     # Publish artifacts
     - task: PublishBuildArtifacts@1
