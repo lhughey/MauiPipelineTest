@@ -115,16 +115,16 @@ stages:
 
     #/p:ApplicationDisplayVersion=$(MAJOR).$(MINOR).$(PATCH).$(PRE_RELEASE) /p:ApplicationVersion=$(MAJOR)$(MINOR)$(PATCH)$(PRE_RELEASE)
     # Copy files to artifact directory  Temporary just to make sure the AAB is generated and signed correctly
-    - task: CopyFiles@2
-      displayName: 'Copy files to: $(build.artifactstagingdirectory)'
-      inputs:
-        SourceFolder: '$(system.defaultworkingdirectory)'
-        Contents: '$(app-build-configuration)\$(app-target-framework-android)\**'
-        TargetFolder: '$(build.artifactstagingdirectory)'
-        CleanTargetFolder: true
+    # - task: CopyFiles@2
+    #   displayName: 'Copy files to: $(build.artifactstagingdirectory)'
+    #   inputs:
+    #     SourceFolder: '$(system.defaultworkingdirectory)'
+    #     Contents: '$(app-build-configuration)\$(app-target-framework-android)\**'
+    #     TargetFolder: '$(build.artifactstagingdirectory)'
+    #     CleanTargetFolder: true
         
     - task: CopyFiles@2
-      displayName: 'Copy files to: $(build.artifactstagingdirectory) - Part 2'
+      displayName: 'Copy files to: $(build.artifactstagingdirectory)'
       inputs:
         SourceFolder: '$(system.defaultworkingdirectory)'
         Contents: '**\bin\**'
