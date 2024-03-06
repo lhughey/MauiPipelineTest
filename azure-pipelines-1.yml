@@ -67,6 +67,7 @@ stages:
         echo Downloaded $(keystore.secureFilePath)
         echo Environment $(ENVIRONMENT)
         echo Working Directory $(System.DefaultWorkingDirectory)\\$(android-keystore-name)
+        echo Build Artifact Location $(app-path-contents)/bin/$(app-build-configuration)/$(app-target-framework-android)/publish/**
         mv $(keystore.secureFilePath) $(System.DefaultWorkingDirectory)
       displayName: Move Keystore to Working Directory
 
@@ -113,11 +114,14 @@ stages:
 
     #/p:ApplicationDisplayVersion=$(MAJOR).$(MINOR).$(PATCH).$(PRE_RELEASE) /p:ApplicationVersion=$(MAJOR)$(MINOR)$(PATCH)$(PRE_RELEASE)
     # Copy files to artifact directory  Temporary just to make sure the AAB is generated and signed correctly
+    
+
+
     - task: CopyFiles@2
       displayName: 'Copy files to: $(build.artifactstagingdirectory)'
       inputs:
         SourceFolder: '$(system.defaultworkingdirectory)'
-        Contents: '$(app-path-contents)/$(app-build-configuration)/$(app-target-framework-android)/publish/**'
+        Contents: '$(app-path-contents)/bin/$(app-build-configuration)/$(app-target-framework-android)/publish/**'
         TargetFolder: '$(build.artifactstagingdirectory)'
         CleanTargetFolder: true
     
