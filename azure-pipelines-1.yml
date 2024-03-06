@@ -67,6 +67,8 @@ stages:
         echo Downloaded $(keystore.secureFilePath)
         echo Environment $(ENVIRONMENT)
         echo Working Directory $(System.DefaultWorkingDirectory)\\$(android-keystore-name)
+        echo Copy Location  $(app-build-configuration)/$(app-target-framework-android)/publish/**
+        echo Copy2 Location $(app-build-configuration)/$(app-target-framework-android)/
         mv $(keystore.secureFilePath) $(System.DefaultWorkingDirectory)
       displayName: Move Keystore to Working Directory
 
