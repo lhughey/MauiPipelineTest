@@ -20,7 +20,7 @@ stages:
   - job: build_maui_ios_app
     displayName: Build App for iOS
     pool:
-      vmImage: macos-latest
+      vmImage: "macos-13"
       demands: xcode
     
     steps:
