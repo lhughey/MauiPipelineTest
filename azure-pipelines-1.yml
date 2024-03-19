@@ -21,6 +21,7 @@ stages:
     displayName: Build App for iOS
     pool:
       vmImage: macos-latest
+      demands: xcode
     
     steps:
     
