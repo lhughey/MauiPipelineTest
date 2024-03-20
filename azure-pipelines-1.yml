@@ -93,7 +93,7 @@ stages:
       inputs:
         serverEndpoint: 'ITS test'
         appSlug: 'lhughey-ov06/Assure-MAUI'
-        appFile: '$(build.artifactstagingdirectory)'
+        appFile: '$(build.artifactstagingdirectory)/$(app-id-ios).ipa'
         releaseNotesOption: 'input'
         releaseNotesInput: '.'
         destinationType: 'groups'
