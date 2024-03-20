@@ -27,6 +27,11 @@ stages:
     
     steps:
     
+    - script: |
+        echo Environment $(ENVIRONMENT)
+        echo iOS app ID: $(app-id-ios) 
+      displayName: Display Vars
+    
     - task: InstallAppleCertificate@2
       inputs:
         certSecureFile: '$(apple-certificate-name)'
