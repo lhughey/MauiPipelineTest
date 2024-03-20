@@ -30,6 +30,9 @@ stages:
     - script: |
         echo Environment $(ENVIRONMENT)
         echo iOS app ID: $(app-id-ios) 
+        echo Agent.JobName $(Agent.JobName)
+        echo Agent.Id $(Agent.Id)
+        echo Agent.Name $(Agent.Name)
       displayName: Display Vars
     
     - task: InstallAppleCertificate@2
@@ -210,12 +213,20 @@ stages:
     #     CleanTargetFolder: true
         
     - task: CopyFiles@2
-      displayName: 'Copy files to: $(build.artifactstagingdirectory)'
+      displayName: 'Copy apk to: $(build.artifactstagingdirectory)'
       inputs:
         SourceFolder: '$(system.defaultworkingdirectory)'
-        Contents: '**\bin\**'
+        Contents:  '**/*.apk'
         TargetFolder: '$(build.artifactstagingdirectory)'
-        CleanTargetFolder: true
+        CleanTargetFolder: false
+
+    - task: CopyFiles@2
+      displayName: 'Copy aab to: $(build.artifactstagingdirectory)'
+      inputs:
+        SourceFolder: '$(system.defaultworkingdirectory)'
+        Contents:  '**/*.aab'
+        TargetFolder: '$(build.artifactstagingdirectory)'
+        CleanTargetFolder: false
         
     - task: AppCenterDistribute@3
       inputs:
