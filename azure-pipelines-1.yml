@@ -61,7 +61,7 @@ stages:
         includePreviewVersions: false
     
         # Install all workloads your solution is supported
-    - powershell: dotnet workload install maui-android maui-ios
+    - powershell: dotnet workload install maui-android maui-ios maui-tizen
       displayName: Install .NET MAUI Workload
       
   # build project
