@@ -80,6 +80,9 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'drop_maui_ios'
         publishLocation: 'Container'
+
+
+
 #-------------------- ANDROID ------------------------------------------------
 
 # variables:
@@ -190,6 +193,16 @@ stages:
         Contents: '**\bin\**'
         TargetFolder: '$(build.artifactstagingdirectory)'
         CleanTargetFolder: true
+        
+    - task: AppCenterDistribute@3
+      inputs:
+        serverEndpoint: 'ITS test'
+        appSlug: 'lhughey-ov06/Assure-MAUI'
+        appFile: '$(build.artifactstagingdirectory)'
+        releaseNotesOption: 'input'
+        releaseNotesInput: '.'
+        destinationType: 'groups'
+
     
     # - task: CopyFiles@2
     #   displayName: 'Copy files to: $(build.artifactstagingdirectory) - Part 3'
