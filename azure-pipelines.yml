@@ -3,6 +3,8 @@
 # Set the vX.X.X-X tag (vMAJOR.MINOR.PATCH-BUILD_NUMBER) to trigger the pipeline
 # Install the Mobile Versioning in your Azure workspace https://marketplace.visualstudio.com/items?itemName=DamienAicheh.mobile-versioning-task
 # 
+variables:
+- group: MAUI vars
 
 parameters:
   - name: environment
@@ -21,20 +23,18 @@ stages:
     displayName: Build App for iOS
     pool:
       vmImage: "macos-13"
-      demands: xcode   
-
+      demands: xcode
     
-    steps:    
-  
-    - task: CmdLine@2
-      inputs:
-        script: |
-          echo selecting latest xcode...
-          sudo xcode-select -s /Applications/Xcode_15.1.0.app
-          xcrun xcode-select --print-path
-          xcodebuild -version
-      displayName: Select Xcode Version
-
+    steps:
+    
+    - script: |
+        echo Environment $(ENVIRONMENT)
+        echo iOS app ID: $(app-id-ios) 
+        echo Agent.JobName $(Agent.JobName)
+        echo Agent.Id $(Agent.Id)
+        echo Agent.Name $(Agent.Name)
+      displayName: Display Vars
+    
     - task: InstallAppleCertificate@2
       inputs:
         certSecureFile: '$(apple-certificate-name)'
@@ -61,7 +61,7 @@ stages:
         includePreviewVersions: false
     
         # Install all workloads your solution is supported
-    - powershell: dotnet workload install maui-android maui-ios
+    - powershell: dotnet workload install maui-android maui-ios maui-tizen
       displayName: Install .NET MAUI Workload
       
   # build project
@@ -88,6 +88,25 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'drop_maui_ios'
         publishLocation: 'Container'
+
+    - task: CopyFiles@2
+      displayName: 'Copy files to: $(build.artifactstagingdirectory)'
+      inputs:
+        SourceFolder: '$(system.defaultworkingdirectory)'
+        Contents: '**\bin\**'
+        TargetFolder: '$(build.artifactstagingdirectory)'
+        CleanTargetFolder: true
+        
+    - task: AppCenterDistribute@3
+      inputs:
+        serverEndpoint: 'ITS test'
+        appSlug: 'lhughey-ov06/Assure-MAUI'
+        appFile: '$(build.artifactstagingdirectory)/MauiPipelineTest.ipa'    #'$(build.artifactstagingdirectory)/$(app-id-ios).ipa'
+        releaseNotesOption: 'input'
+        releaseNotesInput: '.'
+        destinationType: 'groups'
+
+
 #-------------------- ANDROID ------------------------------------------------
 
 # variables:
@@ -139,12 +158,14 @@ stages:
       inputs:
         secureFile: '$(android-keystore-name)'
 
+
     - script: |
         echo Downloaded $(keystore.secureFilePath)
         echo Environment $(ENVIRONMENT)
         echo Working Directory $(System.DefaultWorkingDirectory)\\$(android-keystore-name)
         echo Copy Location $(app-build-configuration)\$(app-target-framework-android)\**
         echo Copy2 Location $(app-build-configuration)/$(app-target-framework-android)/
+        echo iOS app ID: $(app-id-ios) 
         mv $(keystore.secureFilePath) $(System.DefaultWorkingDirectory)
       displayName: Move Keystore to Working Directory
 
@@ -192,12 +213,30 @@ stages:
     #     CleanTargetFolder: true
         
     - task: CopyFiles@2
-      displayName: 'Copy files to: $(build.artifactstagingdirectory)'
+      displayName: 'Copy apk to: $(build.artifactstagingdirectory)'
       inputs:
         SourceFolder: '$(system.defaultworkingdirectory)'
-        Contents: '**\bin\**'
+        Contents:  '**/*.apk'
         TargetFolder: '$(build.artifactstagingdirectory)'
-        CleanTargetFolder: true
+        CleanTargetFolder: false
+
+    - task: CopyFiles@2
+      displayName: 'Copy aab to: $(build.artifactstagingdirectory)'
+      inputs:
+        SourceFolder: '$(system.defaultworkingdirectory)'
+        Contents:  '**/*.aab'
+        TargetFolder: '$(build.artifactstagingdirectory)'
+        CleanTargetFolder: false
+        
+    - task: AppCenterDistribute@3
+      inputs:
+        serverEndpoint: 'ITS test'
+        appSlug: 'its-2/Assure-MAUI-iOS'
+        appFile: '$(build.artifactstagingdirectory)'
+        releaseNotesOption: 'input'
+        releaseNotesInput: '.'
+        destinationType: 'groups'
+
     
     # - task: CopyFiles@2
     #   displayName: 'Copy files to: $(build.artifactstagingdirectory) - Part 3'
