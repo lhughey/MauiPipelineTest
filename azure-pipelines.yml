@@ -109,30 +109,6 @@ stages:
 
 #-------------------- ANDROID ------------------------------------------------
 
-# variables:
-#   - group: 'App Configuration'
-#   - ${{ if eq(parameters.environment, 'Staging') }}:
-#     - group: 'Firebase Configuration Staging'
-#   - ${{ if eq(parameters.environment, 'Production') }}:
-#     - group: 'Firebase Configuration Production'
-#   - name: ENVIRONMENT
-#     value: ${{ parameters.environment }}
-
-# Setting the trigger when a tag has been added to any branch. 
-# trigger:
-#   branches:
-#     exclude:
-#       - '*'
-#   tags:
-#     include:
-#     - v2.*.*-*
-#     - v3.*.*-*
-#     - v4.*.*-*
-#     - v5.*.*-*
-#   paths:
-#     exclude:
-#     - README.md
-
   # Stage for MAUI Android
 - stage: build_maui_android
   jobs:
@@ -192,6 +168,10 @@ stages:
         jdkArchitectureOption: 'x64'
         jdkSourceOption: 'PreInstalled'
 
+
+    # Install all workloads your solution is supported
+    - powershell: dotnet workload install maui-android maui-ios maui-tizen
+      displayName: Install .NET MAUI Workload
 
 
     # build project
