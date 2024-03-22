@@ -234,6 +234,7 @@ stages:
         Contents:  '**/*.apk'
         TargetFolder: '$(build.artifactstagingdirectory)'
         CleanTargetFolder: false
+        FlattenFolders: true
 
     - task: CopyFiles@2
       displayName: 'Copy aab to: $(build.artifactstagingdirectory)'
@@ -242,6 +243,7 @@ stages:
         Contents:  '**/*.aab'
         TargetFolder: '$(build.artifactstagingdirectory)'
         CleanTargetFolder: false
+        FlattenFolders: true
 
     # Publish artifacts
     - task: PublishBuildArtifacts@1
@@ -255,7 +257,7 @@ stages:
       inputs:
         serverEndpoint: 'ITS test'
         appSlug: 'lhughey-ov06/Assure-MAUI'
-        appFile: '$(build.artifactstagingdirectory)'
+        appFile: '$(build.artifactstagingdirectory)/*-Signed.aab'
         releaseNotesOption: 'input'
         releaseNotesInput: '.'
         destinationType: 'groups'
