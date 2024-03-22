@@ -242,6 +242,14 @@ stages:
         Contents:  '**/*.aab'
         TargetFolder: '$(build.artifactstagingdirectory)'
         CleanTargetFolder: false
+
+    # Publish artifacts
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifacts'
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)'
+        ArtifactName: 'drop_maui_android'
+        publishLocation: 'Container' 
         
     - task: AppCenterDistribute@3
       inputs:
@@ -261,10 +269,4 @@ stages:
     #     TargetFolder: '$(build.artifactstagingdirectory)'
     #     CleanTargetFolder: true
     
-    # Publish artifacts
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifacts'
-      inputs:
-        PathtoPublish: '$(build.artifactstagingdirectory)'
-        ArtifactName: 'drop_maui_android'
-        publishLocation: 'Container'  
+ 
