@@ -147,7 +147,7 @@ stages:
     steps:
     
     # Install all workloads your solution is supported
-    - powershell: dotnet workload install maui-android maui-ios maui-tizen
+    - powershell: dotnet workload install maui-android maui-ios #maui-tizen
       displayName: Install .NET MAUI Workload
     
     - powershell: dotnet workload update
