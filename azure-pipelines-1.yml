@@ -146,12 +146,19 @@ stages:
       
     steps:
     
+    - task: UseDotNet@2
+      displayName: Install .NET SDK
+      inputs:
+        packageType: 'sdk'
+        version: '$(dotnet-version)'
+        includePreviewVersions: false
+    
     # Install all workloads your solution is supported
     - powershell: dotnet workload install maui-android maui-ios #maui-tizen
       displayName: Install .NET MAUI Workload
     
-    - powershell: dotnet workload update
-      displayName: Update .NET MAUI Workload
+    # - powershell: dotnet workload update
+    #   displayName: Update .NET MAUI Workload
 
     # Extract the version of the last tag you pushed to your Git repository, from the branch you selected to build your pipeline.
     # - task: ExtractVersionFromTag@1
