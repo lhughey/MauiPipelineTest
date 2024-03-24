@@ -167,8 +167,14 @@ stages:
         versionSpec: '11'
         jdkArchitectureOption: 'x64'
         jdkSourceOption: 'PreInstalled'
-
-
+    
+    - task: UseDotNet@2
+      displayName: Install .NET SDK
+      inputs:
+        packageType: 'sdk'
+        version: '$(dotnet-version)'
+        includePreviewVersions: false
+    
     # Install all workloads your solution is supported
     - powershell: dotnet workload install maui-android maui-ios maui-tizen
       displayName: Install .NET MAUI Workload
