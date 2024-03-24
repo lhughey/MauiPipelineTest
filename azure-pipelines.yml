@@ -198,7 +198,9 @@ stages:
         SourceFolder: '$(system.defaultworkingdirectory)'
         Contents:  '**/*.apk'
         TargetFolder: '$(build.artifactstagingdirectory)'
-        CleanTargetFolder: false
+        FlattenFolders: true
+        CleanTargetFolder: true
+   
 
     - task: CopyFiles@2
       displayName: 'Copy aab to: $(build.artifactstagingdirectory)'
@@ -206,18 +208,9 @@ stages:
         SourceFolder: '$(system.defaultworkingdirectory)'
         Contents:  '**/*.aab'
         TargetFolder: '$(build.artifactstagingdirectory)'
+        FlattenFolders: true
         CleanTargetFolder: false
-        
-    - task: AppCenterDistribute@3
-      inputs:
-        serverEndpoint: 'AssureMauiAppcenterConnection'
-        appSlug: 'its-2/Assure-MAUI-Android'
-        appFile: '$(build.artifactstagingdirectory)'
-        releaseNotesOption: 'input'
-        releaseNotesInput: '.'
-        destinationType: 'groups'
-
-    
+            
     # - task: CopyFiles@2
     #   displayName: 'Copy files to: $(build.artifactstagingdirectory) - Part 3'
     #   inputs:
@@ -233,3 +226,12 @@ stages:
         PathtoPublish: '$(build.artifactstagingdirectory)'
         ArtifactName: 'drop_maui_android'
         publishLocation: 'Container'  
+    
+    - task: AppCenterDistribute@3
+      inputs:
+        serverEndpoint: 'AssureMauiAppcenterConnection'
+        appSlug: 'its-2/Assure-MAUI-Android'
+        appFile: '$(build.artifactstagingdirectory)/*-Signed.aab'
+        releaseNotesOption: 'input'
+        releaseNotesInput: '.'
+        destinationType: 'groups'
