@@ -233,7 +233,7 @@ stages:
         SourceFolder: '$(system.defaultworkingdirectory)'
         Contents:  '**/*.apk'
         TargetFolder: '$(build.artifactstagingdirectory)'
-        CleanTargetFolder: false
+        CleanTargetFolder: true
         FlattenFolders: true
 
     - task: CopyFiles@2
