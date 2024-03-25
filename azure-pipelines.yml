@@ -235,7 +235,7 @@ stages:
     
     - task: AppCenterDistribute@3
       inputs:
-        serverEndpoint: 'AssureMauiAppcenterConnection'
+        serverEndpoint: 'AssureMauiDroidConnection'
         appSlug: 'its-2/Assure-MAUI-Android'
         appFile: '$(build.artifactstagingdirectory)/*-Signed.aab'
         releaseNotesOption: 'input'
