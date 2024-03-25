@@ -69,7 +69,7 @@ stages:
       displayName: 'Build project'
       inputs:
        script: |
-         dotnet publish -f $(app-target-framework-ios) -c Release /p:ApplicationId=$(app-id-ios) /p:ApplicationDisplayVersion=1.1 /p:ApplicationVersion=1.1 /p:ArchiveOnBuild=true /p:EnableAssemblyILStripping=false
+         dotnet publish -f $(app-target-framework-ios) -c Release /p:IpaPackageName=$(app-id-ios) /p:ApplicationDisplayVersion=1.1 /p:ApplicationVersion=1.1 /p:ArchiveOnBuild=true /p:EnableAssemblyILStripping=false
 
 # $(app-path-project) 
 #/p:ApplicationDisplayVersion=$(MAJOR).$(MINOR).$(PATCH) /p:ApplicationVersion=$(PRE_RELEASE)
