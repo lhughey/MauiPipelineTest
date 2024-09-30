@@ -27,8 +27,16 @@ stages:
     pool:
       vmImage: "macos-13"
       demands: xcode
+
+    variables:
+      XCODE_VERSION: '15.4'
+    
+
     
     steps:
+    
+    - script: sudo xcode-select --switch /Applications/Xcode_15.4.app
+      displayName: 'Select Xcode 15.4'
     
     - script: |
         echo Environment $(ENVIRONMENT)
