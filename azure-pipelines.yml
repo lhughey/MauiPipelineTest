@@ -97,14 +97,19 @@ stages:
     - script: |
         dotnet workload list | grep maui
       displayName: Print MAUI Version 
+      
+    
+    - script: |
+        dotnet list $(projectFileLocation) package | grep Microsoft.iOS
+      displayName: Display Installed Microsoft.iOS Version
 
     # - script: |
     #     dotnet add $(projectFileLocation) package Microsoft.iOS --version 17.5.8020
     #   displayName: Install Microsoft.iOS 17.5.8020 1
 
-    - script: |
-        dotnet add package Microsoft.iOS --version 17.5.8020
-      displayName: Install Microsoft.iOS 17.5.8020 2
+    # - script: |
+    #     dotnet add package Microsoft.iOS --version 17.5.8020
+    #   displayName: Install Microsoft.iOS 17.5.8020 2
         
     - script: |
         # Set the version date
