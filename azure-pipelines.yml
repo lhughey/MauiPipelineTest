@@ -28,9 +28,26 @@ stages:
       vmImage: "macos-13"
       demands:
         - xcode
-        - xcodeVersion -equals 15.4
+
+
     
     steps:
+    
+    - script: |
+        echo Mac OS version:
+        sw_vers -productVersion
+        echo
+        echo Installed Xcode versions:
+        ls /Applications | grep 'Xcode'
+        echo
+        echo currently selected xcode:
+        xcrun xcode-select --print-path
+        echo
+        echo selecting latest xcode...
+        sudo xcode-select -s /Applications/Xcode_15.4.app
+        xcrun xcode-select --print-path
+        xcodebuild -version
+      displayName: Select Xcode Version
     
     - script: |
         echo Environment $(ENVIRONMENT)
