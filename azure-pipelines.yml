@@ -49,9 +49,7 @@ stages:
         xcodebuild -version
       displayName: Select Xcode Version
       
-    - script: |
-        dotnet add package Microsoft.iOS --version 17.2.8078
-      displayName: Install Microsoft.iOS 17.2.8078
+
     
     - script: |
         echo Environment $(ENVIRONMENT)
@@ -89,6 +87,14 @@ stages:
         # Install all workloads your solution is supported
     - powershell: dotnet workload install maui-android maui-ios maui-tizen
       displayName: Install .NET MAUI Workload
+
+    - script: |
+        dotnet workload list | grep maui
+      displayName: Print MAUI Version 
+
+    - script: |
+        dotnet add package Microsoft.iOS --version 17.2.8078
+      displayName: Install Microsoft.iOS 17.2.8078
         
     - script: |
         # Set the version date
