@@ -97,9 +97,9 @@ stages:
       displayName: Restore NuGet Packages
 
     
-    - script: |
-        dotnet list $(projectFileLocation) package | grep Microsoft.iOS
-      displayName: Display Installed Microsoft.iOS Version
+    # - script: |
+    #     dotnet list $(projectFileLocation) package | grep Microsoft.iOS
+    #   displayName: Display Installed Microsoft.iOS Version
 
     # - script: |
     #     dotnet add $(projectFileLocation) package Microsoft.iOS --version 17.5.8020
