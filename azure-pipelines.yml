@@ -93,8 +93,8 @@ stages:
       displayName: Print MAUI Version 
 
     - script: |
-        dotnet add package Microsoft.iOS --version 17.2.8078
-      displayName: Install Microsoft.iOS 17.2.8078
+        dotnet add package Microsoft.iOS --version 17.5.8020
+      displayName: Install Microsoft.iOS 17.5.8020
         
     - script: |
         # Set the version date
