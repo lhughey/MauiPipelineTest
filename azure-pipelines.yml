@@ -48,6 +48,10 @@ stages:
         xcrun xcode-select --print-path
         xcodebuild -version
       displayName: Select Xcode Version
+      
+    - script: |
+        dotnet add package Microsoft.iOS --version 17.2.8078
+      displayName: Install Microsoft.iOS 17.2.8078
     
     - script: |
         echo Environment $(ENVIRONMENT)
