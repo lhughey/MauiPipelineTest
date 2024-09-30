@@ -77,20 +77,20 @@ stages:
     #   inputs:
     #     projectFolderPath: '$(Build.SourcesDirectory)'
     
-    - script: |
-        dotnet restore $(projectPathBase)
-      displayName: Restore NuGet Packages
-
-    - script: |
-        dotnet add $(projectFileLocation) package Microsoft.iOS --version 17.5.8020
-      displayName: Install Microsoft.iOS 17.5.8020
-
     - task: UseDotNet@2
       displayName: Install .NET SDK
       inputs:
         packageType: 'sdk'
         version: '$(dotnet-version)'
         includePreviewVersions: false
+    
+      # - script: |
+      #   dotnet restore $(projectPathBase)
+      # displayName: Restore NuGet Packages
+
+    - script: |
+        dotnet add $(projectFileLocation) package Microsoft.iOS --version 17.5.8020
+      displayName: Install Microsoft.iOS 17.5.8020
     
         # Install all workloads your solution is supported
     - powershell: dotnet workload install maui-android maui-ios maui-tizen
