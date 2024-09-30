@@ -17,6 +17,7 @@ parameters:
 
 variables:
   projectPathBase: '$(Build.SourcesDirectory)/MauiPipelineTest'
+  projectFileLocation: '$(projectPathBase)/MauiPipelineTest.csproj'
 
 stages:
   # Stage for MAUI iOS
@@ -75,7 +76,14 @@ stages:
     #   displayName: 'Get git tag version'
     #   inputs:
     #     projectFolderPath: '$(Build.SourcesDirectory)'
-        
+    
+    - script: |
+        dotnet restore $(projectPathBase)
+      displayName: Restore NuGet Packages
+
+    - script: |
+        dotnet add $(projectFileLocation) package Microsoft.iOS --version 17.5.8020
+      displayName: Install Microsoft.iOS 17.5.8020
 
     - task: UseDotNet@2
       displayName: Install .NET SDK
