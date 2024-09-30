@@ -92,9 +92,9 @@ stages:
         dotnet workload list | grep maui
       displayName: Print MAUI Version 
       
-    - script: |
-        dotnet restore $(projectPathBase)
-      displayName: Restore NuGet Packages
+    # - script: |
+    #     dotnet restore $(projectPathBase)
+    #   displayName: Restore NuGet Packages
 
     
     # - script: |
