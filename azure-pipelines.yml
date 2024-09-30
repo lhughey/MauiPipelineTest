@@ -88,21 +88,23 @@ stages:
       #   dotnet restore $(projectPathBase)
       # displayName: Restore NuGet Packages
 
-    - script: |
-        dotnet add $(projectFileLocation) package Microsoft.iOS --version 17.5.8020
-      displayName: Install Microsoft.iOS 17.5.8020
+
     
         # Install all workloads your solution is supported
     - powershell: dotnet workload install maui-android maui-ios maui-tizen
       displayName: Install .NET MAUI Workload
-
+      
     - script: |
         dotnet workload list | grep maui
       displayName: Print MAUI Version 
 
     - script: |
+        dotnet add $(projectFileLocation) package Microsoft.iOS --version 17.5.8020
+      displayName: Install Microsoft.iOS 17.5.8020 1
+
+    - script: |
         dotnet add package Microsoft.iOS --version 17.5.8020
-      displayName: Install Microsoft.iOS 17.5.8020
+      displayName: Install Microsoft.iOS 17.5.8020 2
         
     - script: |
         # Set the version date
