@@ -84,12 +84,6 @@ stages:
         version: '$(dotnet-version)'
         includePreviewVersions: false
     
-      # - script: |
-      #   dotnet restore $(projectPathBase)
-      # displayName: Restore NuGet Packages
-
-
-    
         # Install all workloads your solution is supported
     - powershell: dotnet workload install maui-android maui-ios maui-tizen
       displayName: Install .NET MAUI Workload
@@ -98,6 +92,10 @@ stages:
         dotnet workload list | grep maui
       displayName: Print MAUI Version 
       
+    - script: |
+        dotnet restore $(projectPathBase)
+      displayName: Restore NuGet Packages
+
     
     - script: |
         dotnet list $(projectFileLocation) package | grep Microsoft.iOS
